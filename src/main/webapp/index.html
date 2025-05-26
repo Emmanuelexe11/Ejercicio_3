@@ -12,33 +12,47 @@
         <button onclick="verificar()">Verificar</button>
         <p id="mensaje"></p>
         <script>
-        function estaBalanceado(texto) {
-            let pila = [];
-            let apertura = ['(', '{', '['];
-            let cierre = [')', '}', ']'];
+            function estaBalanceado(texto) {
+                let pila = [];
+                let apertura = ['(', '{', '['];
+                let cierre = [')', '}', ']'];
 
-            for (let i = 0; i < texto.length; i++) {
-                let caracter = texto[i];
+                for (let i = 0; i < texto.length; i++) {
+                    let caracter = texto[i];
 
-                if (apertura.includes(caracter)) {
-                    pila.push(caracter);
-                } else if (cierre.includes(caracter)) {
-                    if (pila.length === 0) {
-                        return false;
-                    }
+                    if (apertura.includes(caracter)) {
+                        pila.push(caracter);
+                    } else if (cierre.includes(caracter)) {
+                        if (pila.length === 0) {
+                            return false;
+                        }
 
-                    let ultimo = pila.pop();
-                    if (apertura.indexOf(ultimo) !== cierre.indexOf(caracter)) {
-                        return false;
+                        let ultimo = pila.pop();
+                        if (apertura.indexOf(ultimo) !== cierre.indexOf(caracter)) {
+                            return false;
+                        }
                     }
                 }
+
+                return pila.length === 0;
             }
+            function verificar() {
+                let expresion = document.getElementById("expresion").value;
+                let mensaje = document.getElementById("mensaje");
 
-            return pila.length === 0;
-        }
+                if (expresion === "") {
+                    mensaje.textContent = "Por favor, ingrese una expresion ";
+                    return;
+                }
 
-    </head>
-<body>
-    <h1>Hello World!</h1>
-</body>
+                if (estaBalanceado(expresion)) {
+                    mensaje.textContent = "La expresion estaa balanceadsa.";
+                } else {
+                    mensaje.textContent = "La expresion noo esta balanceada.";
+                }
+            }
+        </script>
+
+    </body>
 </html>
+
