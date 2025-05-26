@@ -11,6 +11,32 @@
         <input type="text" id="expresion">
         <button onclick="verificar()">Verificar</button>
         <p id="mensaje"></p>
+        <script>
+        function estaBalanceado(texto) {
+            let pila = [];
+            let apertura = ['(', '{', '['];
+            let cierre = [')', '}', ']'];
+
+            for (let i = 0; i < texto.length; i++) {
+                let caracter = texto[i];
+
+                if (apertura.includes(caracter)) {
+                    pila.push(caracter);
+                } else if (cierre.includes(caracter)) {
+                    if (pila.length === 0) {
+                        return false;
+                    }
+
+                    let ultimo = pila.pop();
+                    if (apertura.indexOf(ultimo) !== cierre.indexOf(caracter)) {
+                        return false;
+                    }
+                }
+            }
+
+            return pila.length === 0;
+        }
+
     </head>
 <body>
     <h1>Hello World!</h1>
